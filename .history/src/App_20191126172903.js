@@ -10,11 +10,7 @@ function App() {
   console.log(React);
   return (
     <div>
-      {/* <Homepage /> */}
-      <Switch>
-        <Route exact path='/' component={Homepage} />
-        <Route path='/shop' component={ShopPage} />
-      </Switch>
+      <Homepage />
     </div>
   );
 }
