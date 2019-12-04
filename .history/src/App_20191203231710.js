@@ -11,7 +11,6 @@ function App() {
   console.log(React);
   return (
     <div>
-      <Header />
       {/* <Homepage /> */}
       <Switch>
         <Route exact path='/' component={Homepage} />
