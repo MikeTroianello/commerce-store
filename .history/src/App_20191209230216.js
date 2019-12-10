@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Homepage from './pages/homepage/homepage.component';
@@ -23,12 +23,16 @@ class App extends React.Component {
 
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
           });
         });
       }
-      setCurrentUser(userAuth);
+      setCurrentUser({
+        currentUser: userAuth
+      });
     });
   }
 
@@ -44,25 +48,15 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Homepage} />
           <Route path='/shop' component={ShopPage} />
-          <Route
-            exact
-            path='/signin'
-            render={() =>
-              this.props.currentUser ? <Redirect to='/' /> : <LoginSignup />
-            }
-          />
+          <Route path='/signin' component={LoginSignup} />
         </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-});
-
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
